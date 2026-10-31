@@ -1,0 +1,1 @@
+Implementação clássica do algoritmo de ordenação linear Radix Sort em linguagem C, utilizando o Counting Sort como subrotina estável baseada nos dígitos (unidades, dezenas, centenas, etc.). O programa lê dinamicamente uma quantidade de números inteiros fornecida pelo usuário, exibe a sequência original e apresenta o resultado ordenado de forma eficiente.
