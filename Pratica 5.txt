@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+// Encontra o maior elemento do vetor
+int getMax(int arr[], int n) {
+    int max = arr[0];
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+
+    return max;
+}
+
+// Counting Sort utilizado pelo Radix Sort
+void countingSort(int arr[], int n, int exp) {
+    int output[n];
+    int count[10] = {0};
+
+    // Contagem das ocorrências
+    for (int i = 0; i < n; i++)
+        count[(arr[i] / exp) % 10]++;
+
+    // Soma acumulada
+    for (int i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    // Construção do vetor ordenado
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        count[(arr[i] / exp) % 10]--;
+    }
+
+    // Copia para o vetor original
+    for (int i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+
+// Função principal do Radix Sort
+void radixSort(int arr[], int n) {
+    int max = getMax(arr, n);
+
+    for (int exp = 1; max / exp > 0; exp *= 10)
+        countingSort(arr, n, exp);
+}
+
+// Exibe o vetor
+void exibirVetor(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+
+    printf("\n");
+}
+
+int main() {
+    int n;
+
+    printf("Quantidade de elementos da lista: ");
+    scanf("%d", &n);
+
+    int arr[n];
+
+    printf("\nDigite os elementos da lista:\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("Elemento %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+
+    printf("\nLista original:\n");
+    exibirVetor(arr, n);
+
+    radixSort(arr, n);
+
+    printf("\nLista ordenada pelo Radix Sort:\n");
+    exibirVetor(arr, n);
+
+    return 0;
+}
